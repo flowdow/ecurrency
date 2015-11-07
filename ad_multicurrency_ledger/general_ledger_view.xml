@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	 <record id="general_ledger_tree_view" model="ir.ui.view">
+            <field name="name">general.ledger.tree</field>
+            <field name="model">general.ledger</field>
+            <field name="arch" type="xml">
+                <tree string="General Ledger">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="currency_id"/>
+                    <field name="company_id" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- base structure of product.template, common with product.product -->
+        <record id="general_ledger_form_view" model="ir.ui.view">
+            <field name="name">general.ledger.form</field>
+            <field name="model">general.ledger</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <form string="Product">
+                	<header>
+                		<button name="preview_general_ledger" string="Preview General Ledger" type="object" class="oe_highlight" />
+                	</header>
+                	
+	                  	<group colspan="4">
+	                  	  <group>
+			                    <field name="name" string="Report Name"/>
+			                    <field name="account_id" on_change="on_change_account_id(account_id)"/>
+			                    <field name="date_from"/>
+		                    </group>
+		                    <group>
+			                    <field name="date_to"/>
+			                    <field name="currency_id"/>
+			                    <field name="company_id" />
+		                    </group>	
+	                    </group>	
+                    
+                        <notebook colspan="4">
+                            <page string="Transaction List">
+                               <group colspan="4">
+                               	 <field name="line_ids" nolabel="1" readonly="1">
+                               	 	<tree>
+                               	 		<field name="date" />
+                    					<field name="desc" />
+                    					<field name='name' />
+                    					<field name='debit' />
+                    					<field name="credit" />
+                    					<field name='balance' />
+                    					<field name='rate' />
+                               	 	</tree>
+                               	 </field>
+                               </group> 
+                            </page>
+                        </notebook>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="general_ledger_search_view" model="ir.ui.view">
+            <field name="name">general.ledger.search</field>
+            <field name="model">general.ledger</field>
+            <field name="arch" type="xml">
+            	<search>
+                	<field name="date_from" />
+                </search>
+            </field>
+        </record>
+
+         <record id="general_ledger_multicurrency_action" model="ir.actions.act_window">
+            <field name="name">General Ledger Multicurrency</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">general.ledger</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="general_ledger_tree_view"/>
+            <field name="context">{}</field>
+        </record>
+    	
+    	
+    	
+    	
+    	
+    	 <menuitem id="menu_general_ledger_multicurrency" 
+        		  name="General Ledger Viewer and Report" 
+        		  action="general_ledger_multicurrency_action"
+        		  parent="account.final_accounting_reports"
+        		  icon='STOCK_PRINT'
+        		  sequence="3" />
+    	 
+
+        <report 
+            id="general_ledger_multicurrency_print"
+            string="General Ledger"
+            model="general.ledger" 
+            report_type="qweb-pdf"
+            file="ad_multicurrency_ledger.general_ledger_print" 
+            name="ad_multicurrency_ledger.general_ledger_print"  
+        />		  	
+        		  	
+        		  	
+        		  	
+        		  	    	
+    	
+    </data>
+</openerp>

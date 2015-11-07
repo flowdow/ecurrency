@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	<template id="general_ledger_print">
+	    <t t-call="report.html_container">
+	    <t t-foreach="docs" t-as="o">
+	        <div class="page">
+	            <div class="oe_structure"/>
+	
+	          <table class="table border-black table-condensed" style="border-bottom: 1px solid black; font-size:10px; padding:0; margin:0">
+                <tr>
+                    <td >Report <br/>
+                        From <br/>
+                        to<br/>
+                        Currency <br/>
+                    </td>
+                    <td class="text-left">
+                        : <span t-field="o.name"/><br/>
+                        : <span t-field="o.date_from" t-field-options='{"format": "d/MM/y"}'/><br/>
+                        : <span t-field="o.date_to" t-field-options='{"format": "d/MM/y"}'/><br/>
+                        : <span t-field="o.currency_id.name"/><br/>
+                        
+                    </td>
+                </tr>
+                <tr class="border-black" style="border-bottom: 1px solid black;">
+                </tr>
+            </table>   
+
+
+            <table class="table table-condensed" style="border-top: 1px solid black; font-size:10px; padding:0; margin:0">
+                    <tr>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Ref</th>
+                        <th class="text-right">Debit</th>
+                        <th class="text-right">Credit</th>
+                        <th class="text-right">Balance</th>
+                        <th class="text-right">Rate</th>
+                    </tr>
+	
+	               <tbody >
+	                    <tr t-foreach="o.line_ids" t-as="l">
+	                        <td>
+	                            <span t-field="l.date"/>
+	                        </td>
+	                        <td>
+	                          <span t-field="l.desc"/>
+	                        </td>
+	                        <td>
+	                            <span t-field="l.name"/>
+	                        </td>
+	                        <td class="text-right">
+	                           <span t-field="l.debit"/>
+	                        </td>
+	                        <td class="text-right">
+	                           <span t-field="l.credit"/>
+	                        </td>
+	                        <td class="text-right">
+	                           <span t-field="l.balance"/>
+	                        </td>
+	                        <td class="text-right">
+	                           <span t-field="l.rate"/>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	
+	            <div class="oe_structure"/>
+	        </div>
+	        </t>
+	    </t>
+	</template>
+	
+</data>
+</openerp>
